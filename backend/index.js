@@ -37,7 +37,8 @@ app.get("/:name", (req, res) => {
 })
 
 app.post("/test", (req, res) => {
-    const {data} = req.body
+    const {data} = req.body;
+    console.log(data)
     return res.json({success:true, data:data})
 })
 
