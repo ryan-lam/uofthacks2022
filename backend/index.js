@@ -1,12 +1,13 @@
+// Modules
 const express = require("express")
 const {v4} = require("uuid")
 const cors = require("cors")
 const bodyParser = require("body-parser")
-
+// Middleware + json parsing
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
-
+// Database
 var admin = require("firebase-admin");
 var serviceAccount = require("./firestoreAPI.json");
 admin.initializeApp({
@@ -15,6 +16,13 @@ admin.initializeApp({
 const db = admin.firestore()
 const testDB = db.collection("test")
 const employeeDB = db.collection("Employees")
+
+// routes
+app.use("/scheduler", require("./routes/scheduler"))
+app.use("/payroll", require("./routes/payroll"))
+app.use("/recruiting", require("./routes/recruiting"))
+app.use("/employment-records", require("./routes/employmentRecords"))
+
 
 
 
