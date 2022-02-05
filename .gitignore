@@ -1,5 +1,6 @@
 # APIs
 
+imp.text
 *firestoreAPI.json
 
  Logs
@@ -106,3 +107,21 @@ dist
 
 # TernJS port file
 .tern-port
+
+.DS_Store
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
