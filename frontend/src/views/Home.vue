@@ -9,7 +9,7 @@
 		<h1 class="header--title">Schedule</h1>
 		<div class="header--date">
 			<input type="date" id="scheduler">
-			<button v-on:click="changingDate()">Search</button>
+			<button v-on:click="changingDate()">SEARCH</button>
 		</div>
 	</section>
     
@@ -21,8 +21,16 @@
 				<img src="./../assets/portrait.png" alt="">
 				<h2>{{item.name}}</h2>
 			</div>
-			<p>Start Time: {{item.start}}</p>
-			<p>End Time: {{item.end}}</p>
+			<div class="list--item__time">
+				<p>Start Time:</p>
+				<input type="text" :placeholder="item.start" v-model="item.updateStart">
+			</div>
+			<div class="list--item__time">
+				<p>End Time:</p>
+				<input type="text" :placeholder="item.end" v-model="item.updateEnd">
+			</div>
+			<button v-on:click="edit(item)">EDIT</button>
+			<!-- <p>End Time: {{item.end}}</p> -->
 		</div>
 
 		<div class="list--item notworking" v-for="item in notworking">
@@ -30,7 +38,8 @@
 				<img src="./../assets/portrait.png" alt="">
 				<h2>{{item.name}}</h2>
 			</div>
-			
+			<button v-on:click="callingIn(item)" v-if="item.status == 'callin'">CALL IN</button>
+			<button v-on:click="item.status = 'callin'" style="background-color: grey" v-else>PENDING</button>
 		</div>
 		<div style="height: 40px"></div>
 		
@@ -59,7 +68,7 @@ export default {
 	},
 	methods:{
 		changingDate(){
-			console.log("CALL HAS BEEN MADE")
+	
 			let arr = document.getElementById("scheduler").value.split("-");
 			
 			this.searchingDate = arr.reverse().join("");
@@ -70,6 +79,7 @@ export default {
 		},
 		async search(){
 			this.working = [];
+			this.notworking = [];
 			const responsepromise = await fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
                 method: 'GET',
                 headers: {
@@ -78,21 +88,22 @@ export default {
             }).then(response => response.json()).then(data => {
 				console.log(data);
 				data.working.forEach(element => {
-					console.log(element.name);
 					// console.log(element[`${this.searchingDate}`]);
 					this.working.push({
 						name: element.name,
 						start: element[`${this.searchingDate}Start`],
 						end: element[`${this.searchingDate}End`],
+						updateStart: "",
+						updateEnd: "",
 					})
 					
 				});
 
 				data.notWorking.forEach(element => {
-					console.log(element.name);
 					// console.log(element[`${this.searchingDate}`]);
 					this.notworking.push({
 						name: element.name,
+						status: "callin"
 			
 					})
 					
@@ -100,12 +111,29 @@ export default {
 			
 			});
 
+		},
+		callingIn(item){
+			item.status = 'pending'
+		},
+		async edit(item){
+			let name = item.name;
+			let thing = { id: name.replace(/\s+/g, ''),
+						  start: item.updateStart,
+						  end: item.updateEnd 
+						};
+			console.log("person's name " + item.name);
+			const responsepromise = await fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
+                method: 'POST',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+				body: JSON.stringify(thing),
+            }).then(response => response.json()).then(data => {console.log(data)});
+
 		}
 
 	},
 	async mounted(){
-		
-		console.log("IT WORKEED");
 		document.getElementById("scheduler").value = "2022-01-01";
 		this.search();
 		
@@ -119,7 +147,7 @@ export default {
 @import "./../assets/styles.scss";
 
 main{
-	background-color: aquamarine;
+	background-color: rgb(213, 245, 255);
 	width: calc(100% - 250px);
 	position: relative;
 	z-index: 0;
@@ -152,19 +180,20 @@ main{
 		height: 80px;
 		border-radius: 15px;
 		background-color: rgb(219, 242, 255);
-		
+		transition: all 0.5s;
 		// box-shadow: 0px 0px 3px 0px rgba(211, 211, 211, 0.637);
 		// box-shadow: 0px 0px 3px 1px $green;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-around;
+		
 		align-items: center;
 		
 		&__profile{
 			display: flex;
 			flex-direction: row;
-			transform: translateX(-30px);
+			
 			align-items: center;
+			
 			& > img{
 				display: block;
 				height: 50px;
@@ -174,15 +203,56 @@ main{
 			}
 
 		}
+
+		&__time{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			& > input{
+				margin-left: 10px;
+				width: 60px;
+				font-size: 20px;
+				background: none;
+				
+			}
+
+		}
+
+		& > button{
+			font-size: 15px;
+			padding: 10px 20px;
+			border-radius: 10px;
+			background-color: $green;
+			color: white;
+		}
+
+		// &:hover{
+		// 	cursor: pointer;
+		// 	transform: scale(1.05) translateY(-5px);
+			
+		// }
 		
 	}
 
 	& > .working{
 		border: 3px solid $green;
+		justify-content: space-around;
+		& > .list--item__profile{
+			transform: translateX(-10px);
+		}
 	}
 
 	& > .notworking{
+		justify-content: space-between;
+		
 		border: 3px solid grey;
+		& > .list--item__profile{
+			transform: translateX(40px);
+		}
+		&>button{
+			transform: translate(-40px);
+		}
 	}
 }
 .header{

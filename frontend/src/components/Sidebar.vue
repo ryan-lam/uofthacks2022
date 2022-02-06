@@ -6,7 +6,8 @@
         <section class="sidebar--options">
             <div class="item" v-on:click="schedule"><span>Schedule</span></div>
             <div class="item" v-on:click="payroll"><span>Payroll</span></div>
-            <div class="item"><span>Interviews</span></div>
+            <div class="item"><span>Recruiting</span></div>
+             <div class="item"><span>Records</span></div>
         </section>
     </div>
 </template>
