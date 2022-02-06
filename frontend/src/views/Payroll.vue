@@ -127,7 +127,7 @@ main{
 	}
 
 }
-
+$first-child: 1.1;
 .list{
 	width: 90%;
 	margin: auto;
