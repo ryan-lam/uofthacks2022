@@ -15,15 +15,17 @@ admin.initializeApp({
 });
 const db = admin.firestore()
 const testDB = db.collection("test")
-const employeeDB = db.collection("Employees")
+const employeeDB = db.collection("employee")
+const schedulerDB = db.collection("scheduler")
+const payrollDB = db.collection("payroll")
+const recruitingeDB = db.collection("recruiting")
+const employmentRecordsDB = db.collection("employment-records")
 
 // routes
 app.use("/scheduler", require("./routes/scheduler"))
 app.use("/payroll", require("./routes/payroll"))
 app.use("/recruiting", require("./routes/recruiting"))
 app.use("/employment-records", require("./routes/employmentRecords"))
-
-
 
 
 app.get("/", (req, res) => {return res.send("Running server")})
@@ -44,10 +46,30 @@ app.post("/test", (req, res) => {
 
 
 
-
-
-
-
+app.post("/create-employee", async (req, res) => {
+    const {id, name} = req.body
+    await employeeDB.doc(id).set({
+        id: id,
+        name: name
+    })
+    await schedulerDB.doc(id).set({
+        id: id,
+        name: name
+    })
+    await payrollDB.doc(id).set({
+        id: id,
+        name: name
+    })
+    // await recruitingeDB.doc(id).set({
+    //     id: id,
+    //     name: name
+    // })
+    await employmentRecordsDB.doc(id).set({
+        id: id,
+        name: name
+    })
+    return res.json({success:true, id: id,name: name})
+})
 
 
 
