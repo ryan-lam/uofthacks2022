@@ -4,8 +4,8 @@
             <h1>SimplyHR</h1>
         </section>
         <section class="sidebar--options">
-            <div class="item"><span>Schedule</span></div>
-            <div class="item"><span>Payroll</span></div>
+            <div class="item" v-on:click="schedule"><span>Schedule</span></div>
+            <div class="item" v-on:click="payroll"><span>Payroll</span></div>
             <div class="item"><span>Interviews</span></div>
         </section>
     </div>
@@ -14,6 +14,14 @@
 
 export default {
     name: "Sidebar",
+    methods:{
+        schedule(){
+            this.$router.push("/");
+        },
+        payroll(){
+            this.$router.push("/payroll");
+        }
+    }
 
 }
 </script>

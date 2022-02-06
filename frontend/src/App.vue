@@ -4,7 +4,7 @@
     <router-link to="/about">About</router-link>
   </div> -->
 
-
+  <Sidebar/>
   <router-view/>
 </template>
 
@@ -14,7 +14,7 @@ import Sidebar from '@/components/Sidebar.vue'
 export default {
   name: "App",
   components:{
- 
+    Sidebar
   }
 }
 </script>

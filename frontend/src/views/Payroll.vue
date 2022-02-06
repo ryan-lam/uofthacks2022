@@ -3,9 +3,9 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div> -->
-  
+
   <main class="board">
-    <h1>Schedule</h1>
+    <h1>Payroll</h1>
 	<section class=""></section>
   </main>
 </template>
@@ -16,7 +16,7 @@ import Sidebar from '@/components/Sidebar.vue'
 
 
 export default {
-  name: 'Home',
+  name: 'Payroll',
   components: {
     Sidebar
 
