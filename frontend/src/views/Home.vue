@@ -15,7 +15,8 @@
     
 	<section class="list">
 		<div style="height: 40px"></div>
-		<div class="list--item" v-for="item in working">
+
+		<div class="list--item working" v-for="item in working">
 			<div class="list--item__profile">
 				<img src="./../assets/portrait.png" alt="">
 				<h2>{{item.name}}</h2>
@@ -23,8 +24,18 @@
 			<p>Start Time: {{item.start}}</p>
 			<p>End Time: {{item.end}}</p>
 		</div>
+
+		<div class="list--item notworking" v-for="item in notworking">
+			<div class="list--item__profile">
+				<img src="./../assets/portrait.png" alt="">
+				<h2>{{item.name}}</h2>
+			</div>
+			
+		</div>
+		<div style="height: 40px"></div>
 		
 	</section>
+	<div style="height: 50px"></div>
   </main>
 </template>
 
@@ -42,6 +53,7 @@ export default {
 	data(){
 		return{
 			working: [],
+			notworking:[],
 			searchingDate: "01012022"
 		}
 	},
@@ -75,6 +87,16 @@ export default {
 					})
 					
 				});
+
+				data.notWorking.forEach(element => {
+					console.log(element.name);
+					// console.log(element[`${this.searchingDate}`]);
+					this.notworking.push({
+						name: element.name,
+			
+					})
+					
+				});
 			
 			});
 
@@ -103,7 +125,8 @@ main{
 	z-index: 0;
 	float: right;
 
-	min-height: 100vh;
+	
+	height: min-content;
 
 	& > h1{
 		text-align: left;
@@ -116,7 +139,7 @@ main{
 .list{
 	width: 90%;
 	margin: auto;
-	height: 500px;
+	height: min-content;
 	border-radius: 30px;
 	background-color: white;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.301);
@@ -129,7 +152,7 @@ main{
 		height: 80px;
 		border-radius: 15px;
 		background-color: rgb(219, 242, 255);
-		border: 3px solid $green;
+		
 		// box-shadow: 0px 0px 3px 0px rgba(211, 211, 211, 0.637);
 		// box-shadow: 0px 0px 3px 1px $green;
 		display: flex;
@@ -152,6 +175,14 @@ main{
 
 		}
 		
+	}
+
+	& > .working{
+		border: 3px solid $green;
+	}
+
+	& > .notworking{
+		border: 3px solid grey;
 	}
 }
 .header{
