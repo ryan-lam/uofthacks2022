@@ -17,13 +17,20 @@ const employmentRecordsDB = db.collection("employment-records")
 
 
 
-
-
-router.get("/:date", (req, res) => {
-    console.log("hit")
+router.get("/:date", async (req, res) => {
     const date = req.params.date
-    console.log(date)
-    return res.send(date)
+    const timeStart = date+"Start"
+    const timeEnd = date+"End"
+    const employee_array = []
+    const querySet = await schedulerDB.where(timeStart, "!=", null).get()
+    if (querySet.empty) {
+        console.log(`No employees working on ${date}`)
+        return res.json({data: null})
+    } else {
+        console.log(`${querySet.size} employees working on ${date}`)
+        querySet.forEach((query) => {employee_array.push(query.data())})
+        return res.json({data: employee_array})
+    }
 })
 
 
