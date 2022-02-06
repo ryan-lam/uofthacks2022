@@ -19,18 +19,21 @@ const employmentRecordsDB = db.collection("employment-records")
 
 router.get("/:date", async (req, res) => {
     const date = req.params.date
-    const timeStart = date+"Start"
-    const timeEnd = date+"End"
-    const employee_array = []
-    const querySet = await schedulerDB.where(timeStart, "!=", null).get()
-    if (querySet.empty) {
-        console.log(`No employees working on ${date}`)
-        return res.json({data: null})
-    } else {
-        console.log(`${querySet.size} employees working on ${date}`)
-        querySet.forEach((query) => {employee_array.push(query.data())})
-        return res.json({data: employee_array})
-    }
+    var timeStart = (date+"Start")
+    const working = []
+    const notWorking = []
+    const querySet = await schedulerDB.get()
+    querySet.forEach((employee) => {
+        const employeeData = employee.data()
+        if (employeeData[timeStart] == null) {
+            console.log(employeeData.id, "not working")
+            notWorking.push(employeeData)
+        } else {
+            console.log(employeeData.id, "working")
+            working.push(employeeData)
+        }
+    })
+    return res.json({working: working, notWorking: notWorking})
 })
 router.post("/:date", async (req, res) => { // employee must exist
     const date = req.params.date
