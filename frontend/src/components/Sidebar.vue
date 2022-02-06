@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <section class="sidebar--title">
-            <h1>SimplyHR</h1>
+            <h1>SimpleHR</h1>
         </section>
         <section class="sidebar--options">
             <div class="item" v-on:click="schedule"><span>Schedule</span></div>

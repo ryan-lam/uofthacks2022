@@ -1,0 +1,97 @@
+{
+    "data": 
+    [
+        {
+            "id":"Ryan",
+            "name":"Ryan",
+            "employee": {
+            "phoneNumber":"+1234567890"  
+            },
+            "scheduler": {},
+            "payroll": {
+                "position": "Manager",
+                "positionType": "Full-time",
+                "hourlyWage": "25",
+                "hoursWorked": "36"
+            },
+            "employmentRecord": {}
+        },
+        {
+            "id":"Jax",
+            "name":"Jax",
+            "employee": {
+            "phoneNumber":"+1234567890"  
+            },
+            "scheduler": {},
+            "payroll": {
+                "position": "Cashier",
+                "positionType": "Part-time",
+                "hourlyWage": "15",
+                "hoursWorked": "13"
+            },
+            "employmentRecord": {}
+        },
+        {
+            "id":"Tiseagan",
+            "name":"Tiseagan",
+            "employee": {
+            "phoneNumber":"+1234567890"  
+            },
+            "scheduler": {},
+            "payroll": {
+                "position": "Cashier",
+                "positionType": "Part-time",
+                "hourlyWage": "17",
+                "hoursWorked": "21"
+            },
+            "employmentRecord": {}
+        },
+        {
+            "id":"Klark",
+            "name":"Klark",
+            "employee": {
+            "phoneNumber":"+1234567890"  
+            },
+            "scheduler": {},
+            "payroll": {
+                "position": "General Labour",
+                "positionType": "Full-time",
+                "hourlyWage": "20",
+                "hoursWorked": "34"
+            },
+            "employmentRecord": {}
+        },
+        {
+            "id":"Pradley",
+            "name":"Pradley",
+            "employee": {
+            "phoneNumber":"+1234567890"  
+            },
+            "scheduler": {},
+            "payroll": {
+                "position": "Clerk",
+                "positionType": "Part-time",
+                "hourlyWage": "17",
+                "hoursWorked": "13"
+            },
+            "employmentRecord": {}
+        }
+    ],
+    "recruiting":
+    [
+        {
+            "id":"Darvey",
+            "name":"Darvey",
+            "date":"02012022",
+            "time":"13:00",
+            "RVSP":true
+        },
+        {
+            "id":"Wruce",
+            "name":"Wruce",
+            "date":"03022022",
+            "time":"14:00",
+            "RVSP":false
+        }
+    ]
+}
