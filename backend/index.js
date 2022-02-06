@@ -36,21 +36,6 @@ app.use("/employment-records", require("./routes/employmentRecords"))
 
 app.get("/", (req, res) => {return res.send("Running server")})
 
-app.get("/:name", (req, res) => {
-    const name = req.params.name
-    testDB.doc(name).set({
-        Name: name
-    })
-    return res.send(`${name} added to database`)
-})
-
-app.post("/test", (req, res) => {
-    const {data} = req.body;
-    console.log(data)
-    return res.json({success:true, data:data})
-})
-
-
 
 app.post("/create-employee", async (req, res) => {
     const {id, name} = req.body
@@ -66,16 +51,23 @@ app.post("/create-employee", async (req, res) => {
         id: id,
         name: name
     })
-    // await recruitingeDB.doc(id).set({
-    //     id: id,
-    //     name: name
-    // })
     await employmentRecordsDB.doc(id).set({
         id: id,
         name: name
     })
     return res.json({success:true, id: id,name: name})
 })
+
+
+app.post("/create-interview", async (req, res) => {
+    const {id, name, date, time, } = req.body
+    await recruitingeDB.doc(id).set({
+        id: id,
+        name: name
+    })
+    return res.json({success:true, id: id,name: name})
+})
+
 
 
 
