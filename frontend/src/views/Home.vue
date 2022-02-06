@@ -9,7 +9,7 @@
 		<h1 class="header--title">Schedule</h1>
 		<div class="header--date">
 			<input type="date" id="scheduler">
-			<button>Search</button>
+			<button v-on:click="changingDate()">Search</button>
 		</div>
 	</section>
     
@@ -41,35 +41,51 @@ export default {
 	},
 	data(){
 		return{
-			working: [
-
-			]
+			working: [],
+			searchingDate: "01012022"
 		}
 	},
-	async mounted(){
-		const responsepromise = await fetch("http://localhost:3000/scheduler/01012022", {
+	methods:{
+		changingDate(){
+			console.log("CALL HAS BEEN MADE")
+			let arr = document.getElementById("scheduler").value.split("-");
+			
+			this.searchingDate = arr.reverse().join("");
+			this.search();
+
+			
+			
+		},
+		async search(){
+			this.working = [];
+			const responsepromise = await fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
                 method: 'GET',
                 headers: {
                    'Content-Type': 'application/json',
                 },
-              
-             
-        }).then(response => response.json()).then(data => {
-			console.log(data);
-			data.working.forEach(element => {
-				console.log(element.name);
-				console.log(element["01012022Start"]);
-				this.working.push({
-					name: element.name,
-					start: element["01012022Start"],
-					end: element["01012022End"],
-				})
-				
+            }).then(response => response.json()).then(data => {
+				console.log(data);
+				data.working.forEach(element => {
+					console.log(element.name);
+					// console.log(element[`${this.searchingDate}`]);
+					this.working.push({
+						name: element.name,
+						start: element[`${this.searchingDate}Start`],
+						end: element[`${this.searchingDate}End`],
+					})
+					
+				});
+			
 			});
-			console.log(data.notWorking);
-		});
+
+		}
+
+	},
+	async mounted(){
+		
 		console.log("IT WORKEED");
 		document.getElementById("scheduler").value = "2022-01-01";
+		this.search();
 		
 	}
 

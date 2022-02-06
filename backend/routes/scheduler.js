@@ -25,6 +25,7 @@ router.get("/msg", (req, res) => {
 router.get("/:date", async (req, res) => {
     const date = req.params.date
     var timeStart = (date+"Start")
+    console.log(timeStart);
     const working = []
     const notWorking = []
     const querySet = await schedulerDB.get()
