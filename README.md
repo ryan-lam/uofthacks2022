@@ -1,6 +1,6 @@
 # SimpleHR - UofTHacks2022
 
-[Video Demo (YouTube)](https://youtu.be/hpTcMlz0gUw)
+[Video Demo (YouTube)](https://youtu.be/SJY14yCSI9s)
 
 ## Inspiration
 We wanted to help small businesses bounce back from covid (and navigate "the great resignation") by helping them manage, maintain, and recruit employees. We also wanted to help restore economic activity by increasing employment as well as increasing economic productivity. We felt that an HR management software would be the best type of software to tackle these challenges.
