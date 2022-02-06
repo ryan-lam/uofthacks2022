@@ -5,8 +5,8 @@
         </section>
         <section class="sidebar--options">
             <div class="item"><span>Schedule</span></div>
-            <div class="item">Payroll</div>
-            <div class="item">Interviews</div>
+            <div class="item"><span>Payroll</span></div>
+            <div class="item"><span>Interviews</span></div>
         </section>
     </div>
 </template>
@@ -26,7 +26,7 @@ export default {
         box-shadow: 0px 0px 3px 1px rgb(150, 150, 150);
 
         &--title{
-            background-color: rgba(255, 0, 0, 0.281);
+            background-color: rgb(129, 230, 255);
             height: 150px;
             position: relative;
             & > h1{
@@ -38,25 +38,40 @@ export default {
         }
 
         &--options{
-            background-color: greenyellow;
+            // background-color: greenyellow;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            
+           
 
             & > .item{
-                background-color: red;
-                height: 50px;
+                
+                height: 60px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 & > span{
-                    
-                    background-color: bisque;
+                    font-size: 1.5rem;
+                    transition: transform .5s;
+                    user-select: none;
                 }
 
                 &:hover{
                     cursor: pointer;
+                    background-color: rgb(100, 201, 226);
                 }
+
+                &:hover > span{
+                    transform: translateX(25px);
+                }
+
+                &:active{
+                    background-color: rgb(50, 141, 163);
+                }
+                &:active > span{
+                    color: white;
+                }
+
 
             }
 
