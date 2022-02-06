@@ -21,7 +21,7 @@ export default {
     .sidebar{
         width: 250px;
         height: 100vh;
-        
+        z-index: 2;
         position: fixed;
         box-shadow: 0px 0px 3px 1px rgb(150, 150, 150);
 
