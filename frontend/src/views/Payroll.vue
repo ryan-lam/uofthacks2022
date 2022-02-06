@@ -27,9 +27,9 @@
 			<p>{{item.name}}</p>
             <p>{{item.position}}</p>
             <p>{{item.positionType}}</p>
-            <p>{{item.hourlyWage}}</p>
-            <p>{{item.hoursWorked}}</p>
-            <p>{{item.paycheckValue}}</p>
+            <p>${{item.hourlyWage}}/h</p>
+            <p>{{item.hoursWorked}} hours</p>
+            <p>${{item.paycheckValue}}</p>
 		</div>
 
 		

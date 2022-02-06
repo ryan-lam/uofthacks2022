@@ -6,8 +6,8 @@
         <section class="sidebar--options">
             <div class="item" v-on:click="schedule"><span>Schedule</span></div>
             <div class="item" v-on:click="payroll"><span>Payroll</span></div>
-            <div class="item"><span>Recruiting</span></div>
-             <div class="item"><span>Records</span></div>
+            <div class="item" v-on:click="recruiting"><span>Recruiting</span></div>
+            <div class="item" v-on:click="records"><span>Records</span></div>
         </section>
     </div>
 </template>
@@ -21,6 +21,12 @@ export default {
         },
         payroll(){
             this.$router.push("/payroll");
+        },
+        recruiting(){
+            this.$router.push("/recruiting");
+        },
+        records(){
+             this.$router.push("/records");
         }
     }
 
@@ -39,6 +45,7 @@ export default {
             height: 150px;
             position: relative;
             & > h1{
+                font-size: 35px;
                 position: absolute;
                 top: 50%;
                 left: 50%;
