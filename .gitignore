@@ -1,5 +1,7 @@
+# Dummy data (gitignore to hide twilio phone numbers)
+*dummyData.json
+
 # APIs
-*twilioAPI.json
 *imp.txt
 *firestoreAPI.json
 *twilioAPI.json

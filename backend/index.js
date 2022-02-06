@@ -68,17 +68,22 @@ app.post("/create-employee", async (req, res) => {
         contracts: v4(),
         NDAS: v4()
     })
+    console.log(`Added employee ${id}`)
     return res.json({success:true, id: id, name: name})
 })
 
 
 
 app.post("/create-interview", async (req, res) => {
-    const {id, name, date, time, } = req.body
+    const {id, name, date, time, RVSP} = req.body
     await recruitingeDB.doc(id).set({
         id: id,
-        name: name
+        name: name,
+        date: date,
+        time: time,
+        RVSP: RVSP
     })
+    console.log(`Added interview ${id}`)
     return res.json({success:true, id: id,name: name})
 })
 
