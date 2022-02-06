@@ -20,6 +20,12 @@ const schedulerDB = db.collection("scheduler")
 const payrollDB = db.collection("payroll")
 const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
+// Twilio
+const http = require('http');
+const key = require('./twilioAPI.json')
+const client = require('twilio')(key.accountSid, key.authToken);
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 
 // routes
 app.use("/scheduler", require("./routes/scheduler"))

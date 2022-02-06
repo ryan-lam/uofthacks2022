@@ -2,7 +2,6 @@
 const express = require("express")
 const router = express.Router()
 const {v4} = require("uuid")
-
 // Database
 var admin = require("firebase-admin");
 const { NetworkContext } = require("twilio/lib/rest/supersim/v1/network")
@@ -14,10 +13,10 @@ const payrollDB = db.collection("payroll")
 const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
 
+// get request to get everyone who has an interview
 
 
-
-
+// post request to add someone to the interview database
 
 
 
