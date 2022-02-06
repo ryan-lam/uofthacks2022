@@ -5,19 +5,25 @@
   </div> -->
   
   <main class="board">
-    <h1>Schedule</h1>
+	<section class="header">
+		<h1 class="header--title">Schedule</h1>
+		<div class="header--date">
+			<input type="date" id="scheduler">
+			<button>Search</button>
+		</div>
+	</section>
+    
 	<section class="list">
 		<div style="height: 40px"></div>
-		<div class="list--item">
+		<div class="list--item" v-for="item in working">
 			<div class="list--item__profile">
 				<img src="./../assets/portrait.png" alt="">
-				<h2>Ryan Lam</h2>
+				<h2>{{item.name}}</h2>
 			</div>
-			<p>Start Time: 8:00</p>
-			<p>End Time: 17:00</p>
+			<p>Start Time: {{item.start}}</p>
+			<p>End Time: {{item.end}}</p>
 		</div>
-		<div class="item"></div>
-		<div class="item"></div>
+		
 	</section>
   </main>
 </template>
@@ -40,6 +46,32 @@ export default {
 			]
 		}
 	},
+	async mounted(){
+		const responsepromise = await fetch("http://localhost:3000/scheduler/01012022", {
+                method: 'GET',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+              
+             
+        }).then(response => response.json()).then(data => {
+			console.log(data);
+			data.working.forEach(element => {
+				console.log(element.name);
+				console.log(element["01012022Start"]);
+				this.working.push({
+					name: element.name,
+					start: element["01012022Start"],
+					end: element["01012022End"],
+				})
+				
+			});
+			console.log(data.notWorking);
+		});
+		console.log("IT WORKEED");
+		document.getElementById("scheduler").value = "2022-01-01";
+		
+	}
 
 }
 </script>
@@ -66,7 +98,7 @@ main{
 }
 
 .list{
-	width: 85%;
+	width: 90%;
 	margin: auto;
 	height: 500px;
 	border-radius: 30px;
@@ -105,6 +137,39 @@ main{
 		}
 		
 	}
-
 }
+.header{
+		width: 90%;
+		margin: auto;
+
+		height: 100px;
+	&--title{
+		text-align: left;
+		padding: 20px 0px 0px 50px;
+		font-size: 50px;
+		width: max-content;
+		float: left;
+	}
+
+	&--date{
+		float: right;
+		background-color: white;
+		padding: 20px 30px;
+		width: min-content;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		border-radius: 20px;
+		margin-top: 20px;
+		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.301);
+		& > button{
+			padding: 10px 20px;
+			font-size: 20px;
+			background-color: $green;
+			color: white;
+			margin-left: 20px;
+		}
+	}
+}
+
 </style>
