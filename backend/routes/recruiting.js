@@ -14,11 +14,26 @@ const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
 
 // get request to get everyone who has an interview
-
-
+router.get("/", async (req, res) => {
+    // const {}
+    // const
+})
 // post request to add someone to the interview database
-
-
-
+router.post("/", async (req, res) => {
+    const {id, first, last, DOB, age, institution, references, previous_experience, criminal_history} = req.body; 
+    const candidate = employmentRecordsDB.doc(id);
+    await candidate.set({
+        id: id,
+        first: first,
+        last: last,
+        DOB: DOB,
+        age: age, 
+        institution: institution,
+        references: references,
+        previous_experience: previous_experience,
+        criminal_history: criminal_history
+    },{merge:true})
+    return res.json({success:true})
+})
 
 module.exports = router
