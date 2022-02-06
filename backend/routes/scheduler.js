@@ -32,8 +32,18 @@ router.get("/:date", async (req, res) => {
         return res.json({data: employee_array})
     }
 })
-
-
+router.post("/:date", async (req, res) => { // employee must exist
+    const date = req.params.date
+    const timeStart = date+"Start"
+    const timeEnd = date+"End"
+    const {id, start, end} = req.body
+    console.log("Scheduling hours...")
+    await schedulerDB.doc(id).set({
+        [timeStart]: start,
+        [timeEnd]: end
+    }, {merge: true})
+    return res.json((await schedulerDB.doc(id).get()).data())
+})
 
 
 
