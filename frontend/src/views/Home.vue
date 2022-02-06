@@ -80,13 +80,14 @@ export default {
 		async search(){
 			this.working = [];
 			this.notworking = [];
+
 			const responsepromise = await fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
                 method: 'GET',
                 headers: {
                    'Content-Type': 'application/json',
                 },
             }).then(response => response.json()).then(data => {
-				console.log(data);
+				
 				data.working.forEach(element => {
 					// console.log(element[`${this.searchingDate}`]);
 					this.working.push({
@@ -114,15 +115,30 @@ export default {
 		},
 		callingIn(item){
 			item.status = 'pending'
+			
+			let name = item.name;
+
+			let thing = { id: name,
+						  date: this.searchingDate
+					};
+			const responsepromise = fetch(`http://localhost:3000/scheduler/request-work`, {
+                method: 'POST',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+				body: JSON.stringify(thing),
+            }).then(response => response.json()).then(data => {console.log(data)});
+
+
 		},
-		async edit(item){
+		edit(item){
 			let name = item.name;
 			let thing = { id: name.replace(/\s+/g, ''),
 						  start: item.updateStart,
 						  end: item.updateEnd 
 						};
-			console.log("person's name " + item.name);
-			const responsepromise = await fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
+			
+			const responsepromise = fetch(`http://localhost:3000/scheduler/${this.searchingDate}`, {
                 method: 'POST',
                 headers: {
                    'Content-Type': 'application/json',
@@ -147,7 +163,9 @@ export default {
 @import "./../assets/styles.scss";
 
 main{
-	background-color: rgb(213, 245, 255);
+	// background-color: rgb(213, 245, 255);
+	background: rgb(0,82,112);
+	background: linear-gradient(6deg, rgba(0,82,112,1) 0%, rgba(71,169,245,1) 35%, rgba(213,245,255,1) 100%);	
 	width: calc(100% - 250px);
 	position: relative;
 	z-index: 0;

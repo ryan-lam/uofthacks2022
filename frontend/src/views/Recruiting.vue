@@ -6,7 +6,7 @@
   
   <main class="board">
 	<section class="header">
-		<h1 class="header--title">Payroll</h1>
+		<h1 class="header--title">Recruiting</h1>
 		
 	</section>
     

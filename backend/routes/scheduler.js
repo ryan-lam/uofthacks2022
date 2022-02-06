@@ -18,14 +18,13 @@ const client = require('twilio')(key.accountSid, key.authToken);
 
 
 
-// TEST THIS
 router.post("/request-work", async (req, res) => {
     const {id, date} = req.body
     const day = date.slice(0,2)
     const month = date.slice(2,4)
     const year = date.slice(4)
-    const name = employee.name
     const employee = (await employeeDB.doc(id).get()).data()
+    const name = employee.name
     const body = `Hi ${name}, your employer asks if you can fill in on shift(s) on ${day}/${month}/${year}. Please log into SimpleHR to accept or to view the request.`
     const message = await client.messages.create({
         body: body,
@@ -87,7 +86,6 @@ const nofityEmployeeHours = async (id, date, start, end) => {
     const message = await client.messages.create({
      body: body,
      from: '+16474903692',
-    //  to: '+16472868186'
      to: employee.phoneNumber
    })
    console.log(message.body)
