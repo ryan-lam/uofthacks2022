@@ -24,9 +24,9 @@
 
 		<div class="list--item" v-for="(item, index) in people" :style="[index%2==0 ? {'background-color': 'white'} : {'background-color': 'rgb(219, 242, 255)'}]">
 			<p>{{item.name}}</p>
-            <p>{{item.ndas}}</p>
-            <p>{{item.taxforms}}</p>
-            <p>{{item.contracts}}</p>
+            <p><a href="#">{{item.ndas}}</a></p>
+            <p><a href="#">{{item.taxforms}}</a></p>
+            <p><a href="#">{{item.contracts}}</a></p>
         
 		</div>
 
@@ -106,7 +106,10 @@ export default {
 <style lang="scss" scoped>
 
 @import "./../assets/styles.scss";
-
+a{
+    color: blue;
+   
+}
 main{
 	// background-color: rgb(213, 245, 255);
     
@@ -135,6 +138,7 @@ main{
 	background-color: white;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.301);
 	margin-top: 40px;
+    overflow: hidden;
     &--header{
         display: flex;
         flex-direction: row;

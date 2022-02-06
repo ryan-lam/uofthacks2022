@@ -32,9 +32,6 @@
             <p>${{item.paycheckValue}}</p>
 		</div>
 
-		
-		<div style="height: 40px"></div>
-		
 	</section>
 	<div style="height: 50px"></div>
   </main>
@@ -139,6 +136,7 @@ main{
 	background-color: white;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.301);
 	margin-top: 40px;
+    overflow: hidden;
     &--header{
         display: flex;
         flex-direction: row;
