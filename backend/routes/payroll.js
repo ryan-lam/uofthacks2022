@@ -14,8 +14,6 @@ const payrollDB = db.collection("payroll")
 const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
 
-
-
 router.get("/", async (req, res) => {
     const querySet = await payrollDB.get()
     const payrolls = []
@@ -36,11 +34,6 @@ router.get("/", async (req, res) => {
     console.log(payrolls)
     return res.json({payrolls: payrolls})
 })
-
-
-
-
-
 
 
 module.exports = router

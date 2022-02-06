@@ -15,14 +15,36 @@ const employmentRecordsDB = db.collection("employment-records")
 
 // get request to get everyone who has an interview
 router.get("/", async (req, res) => {
-    // const {}
-    // const
+
+    const querySet = await recruitingeDB.get()
+    console.log(querySet);
+    const recruits = []
+    querySet.forEach((recruit) => {
+        const recruitData = recruit.data()
+        // const recruit = {
+        //     id: recruitData.id,
+        //     first: recruitData.first,
+        //     last: recruitData.last,
+        //     DOB: recruitData.DOB,
+        //     age: recruitData.age, 
+        //     institution: recruitData.institution,
+        //     references: recruitData.references,
+        //     previous_experience: recruitData.previousExperience,
+        //     criminal_history: recruitData.criminalHistory
+        // }
+        console.log(recruitData)
+
+        recruits.push(recruitData)
+    })
+    console.log(recruits)
+    return res.json({recruits: recruits})
 })
+
 // post request to add someone to the interview database
 router.post("/", async (req, res) => {
-    const {id, first, last, DOB, age, institution, references, previous_experience, criminal_history} = req.body; 
-    const candidate = employmentRecordsDB.doc(id);
-    await candidate.set({
+    const {id, first, last, DOB, age, institution, references, previousExperience, criminalHistory} = req.body; 
+    const recruit = employmentRecordsDB.doc(id);
+    await recruit.set({
         id: id,
         first: first,
         last: last,
@@ -30,8 +52,8 @@ router.post("/", async (req, res) => {
         age: age, 
         institution: institution,
         references: references,
-        previous_experience: previous_experience,
-        criminal_history: criminal_history
+        previousExperience: previousExperience,
+        criminalHistory: criminalHistory
     },{merge:true})
     return res.json({success:true})
 })
