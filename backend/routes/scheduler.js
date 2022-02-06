@@ -5,7 +5,6 @@ const router = express.Router()
 const {v4} = require("uuid")
 // Database
 var admin = require("firebase-admin");
-const { NetworkContext } = require("twilio/lib/rest/supersim/v1/network")
 const db = admin.firestore()
 const testDB = db.collection("test")
 const employeeDB = db.collection("employee")
@@ -17,10 +16,26 @@ const employmentRecordsDB = db.collection("employment-records")
 const key = require('../twilioAPI.json')
 const client = require('twilio')(key.accountSid, key.authToken);
 
-router.get("/msg", (req, res) => {
-    nofityEmployee("John Wick", "01012022", "9:00", "15:00")
-    return res.json({success: true})
+
+
+router.post("/request-work", async (req, res) => {
+    const {id, date} = req.body
+    const day = date.slice(0,2)
+    const month = date.slice(2,4)
+    const year = date.slice(4)
+    const name = employee.name.split(" ")[0]
+    const employee = (await employeeDB.doc(id).get()).data()
+    const body = `Hi, ${name}, your employer asks if you can fill in on shift(s) on ${day}/${month}/${year}. Please log into SimpleHR to accept or to view these changes`
+    const message = await client.messages.create({
+        body: body,
+        from: '+16474903692',
+    //  to: '+16472868186'
+        to: employee.phoneNumber
+    })
+    console.log(message.body)
 })
+
+
 
 router.get("/:date", async (req, res) => {
     const date = req.params.date
@@ -42,6 +57,8 @@ router.get("/:date", async (req, res) => {
     return res.json({working: working, notWorking: notWorking})
 })
 
+
+
 router.post("/:date", async (req, res) => { // employee must exist
     const date = req.params.date
     const timeStart = date+"Start"
@@ -53,26 +70,27 @@ router.post("/:date", async (req, res) => { // employee must exist
         [timeEnd]: end
     }, {merge: true})
     const employee = (await schedulerDB.doc(id).get()).data()
-    nofityEmployee(employee.name, date, start, end)
+    nofityEmployeeHours(employee.id, date, start, end)
     return res.json(employee)
 })
 
 
-const nofityEmployee = async (name, date, start, end) => {
+
+const nofityEmployeeHours = async (id, date, start, end) => {
     const day = date.slice(0,2)
     const month = date.slice(2,4)
     const year = date.slice(4)
-    // const phoneNumber = (await employeeDB.doc(id).get()).data().phoneNumber
+    const employee = (await employeeDB.doc(id).get()).data()
+    const name = employee.name.split(" ")[0]
     const body = `Hi, ${name}, your working hours for ${day}/${month}/${year} has been re-scheduled to ${start}-${end} by your employeer. Please log into SimpleHR to view these changes`
     const message = await client.messages.create({
      body: body,
      from: '+16474903692',
-     to: '+16472868186'
-    //  to: phoneNumber
+    //  to: '+16472868186'
+     to: employee.phoneNumber
    })
    console.log(message.body)
 }
-
 
 
 

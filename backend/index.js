@@ -23,8 +23,10 @@ const employmentRecordsDB = db.collection("employment-records")
 // Twilio
 const http = require('http');
 const key = require('./twilioAPI.json')
+const { V4MAPPED } = require("dns")
 const client = require('twilio')(key.accountSid, key.authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 
 
 // routes
@@ -32,31 +34,43 @@ app.use("/scheduler", require("./routes/scheduler"))
 app.use("/payroll", require("./routes/payroll"))
 app.use("/recruiting", require("./routes/recruiting"))
 app.use("/employment-records", require("./routes/employmentRecords"))
-
-
 app.get("/", (req, res) => {return res.send("Running server")})
 
 
+
 app.post("/create-employee", async (req, res) => {
-    const {id, name} = req.body
+    const {id, name, employee, scheduler, payroll, employmentRecord} = req.body
     await employeeDB.doc(id).set({
         id: id,
-        name: name
+        name: name,
+        phoneNumber: employee.phoneNumber
     })
     await schedulerDB.doc(id).set({
         id: id,
-        name: name
+        name: name,
+        "01012022Start":"9:00",
+        "01012022End":"17:00",
+        "02012022Start":"9:00",
+        "02012022End":"17:00",
     })
     await payrollDB.doc(id).set({
         id: id,
-        name: name
+        name: name,
+        position: payroll.position,
+        positionType: payroll.positionType,
+        hourlyWage: payroll.hourlyWage,
+        hoursWorked: payroll.hoursWorked,
     })
     await employmentRecordsDB.doc(id).set({
         id: id,
-        name: name
+        name: name,
+        taxforms: v4(),
+        contracts: v4(),
+        NDAS: v4()
     })
-    return res.json({success:true, id: id,name: name})
+    return res.json({success:true, id: id, name: name})
 })
+
 
 
 app.post("/create-interview", async (req, res) => {
@@ -67,7 +81,6 @@ app.post("/create-interview", async (req, res) => {
     })
     return res.json({success:true, id: id,name: name})
 })
-
 
 
 

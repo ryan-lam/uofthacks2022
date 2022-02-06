@@ -15,25 +15,34 @@ const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
 
 
-//
-router.post("/create-employee", async (req, res) => {
-    const {id, first, last, address, DOB, age, hours, earnings} = req.body; 
-    const employee = employmentRecordsDB.doc(id);
-    await employee.set({
-        id: id,
-        first: first,
-        last: last,
-        address: address,
-        DOB: DOB,
-        age: age, 
-        hours: hours,
-        earnings: earnings
-    },{merge:true})
-    return res.json({success:true})
+
+router.get("/", async (req, res) => {
+    const querySet = await employmentRecordsDB.get()
+    const employmentRecords = []
+    querySet.forEach((record) => {
+        employmentRecords.push(record.data())
+    })
+    return res.json({employmentRecords: employmentRecords})
 })
 
 
 
+// //
+// router.post("/create-employee", async (req, res) => {
+//     const {id, first, last, address, DOB, age, hours, earnings} = req.body; 
+//     const employee = employmentRecordsDB.doc(id);
+//     await employee.set({
+//         id: id,
+//         first: first,
+//         last: last,
+//         address: address,
+//         DOB: DOB,
+//         age: age, 
+//         hours: hours,
+//         earnings: earnings
+//     },{merge:true})
+//     return res.json({success:true})
+// })
 
 
 

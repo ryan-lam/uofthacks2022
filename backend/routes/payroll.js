@@ -14,6 +14,8 @@ const payrollDB = db.collection("payroll")
 const recruitingeDB = db.collection("recruiting")
 const employmentRecordsDB = db.collection("employment-records")
 
+
+
 router.get("/", async (req, res) => {
     const querySet = await payrollDB.get()
     const payrolls = []
@@ -27,13 +29,14 @@ router.get("/", async (req, res) => {
             positionType: employeeData.positionType,
             hourlyWage: employeeData.hourlyWage,
             hoursWorked: employeeData.hoursWorked,
-            paycheckValue: parseInt(employeeData.hourlyWage) * parseInt(employeeData.hoursWorked)
+            paycheckValue: (parseInt(employeeData.hourlyWage)*parseInt(employeeData.hoursWorked)).toString()
         }
         payrolls.push(payroll)
     })
     console.log(payrolls)
     return res.json({payrolls: payrolls})
 })
+
 
 
 module.exports = router
